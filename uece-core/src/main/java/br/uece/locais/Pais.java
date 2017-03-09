@@ -5,31 +5,25 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(schema = "locais", name = "cidade")
-public class Cidade implements Serializable {
+@Table(schema = "locais", name = "pais")
+public class Pais implements Serializable {
 
 	@Id
-	@Column(name = "cod_cidade", nullable = false)
+	@Column(name = "cod_pais", nullable = false)
 	private Integer id;
 	
-	@JoinColumn(name = "cod_estado", nullable = false)
-	@ManyToOne
-	private Estado estado = new Estado();
+	@Column(name = "sgl_pais", nullable = false)
+	private String sigla;
 	
-	@Column(name = "nom_cidade", nullable = false)
+	@Column(name = "nom_pais", nullable = false)
 	private String nome;
 
-	@Column(name = "distancia_uece")
-	private Double distanciaUece;
-	
-	@Column(name = "cod_munic_censo")
-	private Integer codigoCenso;
+	@Column(name = "sgl_pais_censo")
+	private String siglaCenso;
 	
 	public Integer getId() {
 		return id;
@@ -39,12 +33,12 @@ public class Cidade implements Serializable {
 		this.id = id;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public String getSigla() {
+		return sigla;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
 	}
 
 	public String getNome() {
@@ -55,20 +49,12 @@ public class Cidade implements Serializable {
 		this.nome = nome;
 	}
 
-	public Double getDistanciaUece() {
-		return distanciaUece;
+	public String getSiglaCenso() {
+		return siglaCenso;
 	}
 
-	public void setDistanciaUece(Double distanciaUece) {
-		this.distanciaUece = distanciaUece;
-	}
-
-	public Integer getCodigoCenso() {
-		return codigoCenso;
-	}
-
-	public void setCodigoCenso(Integer codigoCenso) {
-		this.codigoCenso = codigoCenso;
+	public void setSiglaCenso(String siglaCenso) {
+		this.siglaCenso = siglaCenso;
 	}
 
 	@Override
@@ -76,6 +62,7 @@ public class Cidade implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		return result;
 	}
 
@@ -87,11 +74,16 @@ public class Cidade implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cidade other = (Cidade) obj;
+		Pais other = (Pais) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (sigla == null) {
+			if (other.sigla != null)
+				return false;
+		} else if (!sigla.equals(other.sigla))
 			return false;
 		return true;
 	}
